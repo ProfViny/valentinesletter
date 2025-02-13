@@ -69,4 +69,97 @@
       color: white;
       padding: 8px 12px;
       border-radius: 8px;
-      fo
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    #openHint {
+      top: 50px;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; } 
+    }
+  </style>
+</head>
+<body>
+  <div id="zoomHint">Toque na imagem para dar zoom!</div>
+  <div id="openHint">Toque para abrir!</div>
+  <img id="card" src="carta_fechada.png" alt="Cartão Fechado">
+  <img id="openCard" src="carta_aberta.png" alt="Cartão Aberto">
+  <img id="bouncingGif" src="sax.gif" alt="Coração Animado">
+
+  <audio id="romanticSong" src="musica_romantica.mp3"></audio>
+
+  <script>
+    const card = document.getElementById('card');
+    const openCard = document.getElementById('openCard');
+    const romanticSong = document.getElementById('romanticSong');
+    const bouncingGif = document.getElementById('bouncingGif');
+    const zoomHint = document.getElementById('zoomHint');
+    const openHint = document.getElementById('openHint');
+
+    let x = Math.random() * window.innerWidth;
+    let y = Math.random() * window.innerHeight;
+    let dx = 3;
+    let dy = 3;
+    const loveWords = ["Love", "Forever", "Passion", "Sweetheart", "Darling", "Romance", "Heart", "Kiss", "Hug"];
+
+    function createLoveWord() {
+      const word = document.createElement('div');
+      word.classList.add('love-word');
+      word.innerText = loveWords[Math.floor(Math.random() * loveWords.length)];
+      word.style.left = `${x}px`;
+      word.style.top = `${y}px`;
+      document.body.appendChild(word);
+      setTimeout(() => word.remove(), 2000);
+    }
+
+    function moveGif() {
+      x += dx;
+      y += dy;
+      
+      if (x + bouncingGif.width >= window.innerWidth || x <= 0) {
+        dx *= -1;
+        createLoveWord();
+      }
+      if (y + bouncingGif.height >= window.innerHeight || y <= 0) {
+        dy *= -1;
+        createLoveWord();
+      }
+      
+      bouncingGif.style.left = x + 'px';
+      bouncingGif.style.top = y + 'px';
+
+      requestAnimationFrame(moveGif);
+    }
+
+    openHint.style.display = 'block';
+
+    card.addEventListener('click', () => {
+      card.style.display = 'none';
+      openCard.style.display = 'block';
+      zoomHint.style.display = 'block';
+      openHint.style.display = 'none';
+      romanticSong.play();
+      bouncingGif.style.display = 'block';
+      moveGif();
+    });
+
+    openCard.addEventListener('click', () => {
+      openCard.classList.toggle('zoomed');
+    });
+  </script>
+</body>
+</html>
