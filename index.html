@@ -13,146 +13,60 @@
       background-color: #f8f0f8;
       margin: 0;
       font-family: Arial, sans-serif;
-      overflow: hidden;
-      position: relative;
       flex-direction: column;
     }
-    #card {
+    
+    img {
+      max-width: 90vw;
+      height: auto;
       cursor: pointer;
       transition: transform 0.3s ease;
-      animation: pulse 1.5s infinite;
     }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+
     #card:hover {
       transform: scale(1.05);
     }
+
     #openCard {
       display: none;
-      position: absolute;
-      transition: transform 0.3s ease;
+      position: relative;
+      max-width: 100%;
+      object-fit: contain;
     }
+
     #openCard.zoomed {
-      transform: scale(1.5);
+      transform: scale(1.2);
     }
+
     #bouncingGif {
       display: none;
       position: absolute;
-      width: 100px;
+      width: 80px;
       height: auto;
     }
+
     .love-word {
       position: absolute;
-      font-size: 28px;
+      font-size: 24px;
       color: #ff1493;
       font-weight: bold;
       font-family: 'Comic Sans MS', cursive, sans-serif;
       text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.5);
       animation: floatUp 2s ease-in-out forwards;
     }
+
     @keyframes floatUp {
       0% { opacity: 1; transform: translateY(0) scale(1); }
-      50% { transform: translateY(-20px) scale(1.2); }
+      50% { transform: translateY(-20px) scale(1.1); }
       100% { opacity: 0; transform: translateY(-40px) scale(1); }
     }
+
     #zoomHint, #openHint {
       display: none;
       position: absolute;
       top: 20px;
       background: rgba(255, 0, 127, 0.8);
       color: white;
-      padding: 10px 15px;
-      border-radius: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 1s ease-in-out;
-    }
-    #openHint {
-      top: 50px;
-      animation: blink 1.5s infinite;
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; } 
-    }
-  </style>
-</head>
-<body>
-  <div id="zoomHint">Click on the image to zoom in!</div>
-  <div id="openHint">Click to open!</div>
-  <img id="card" src="carta_fechada.png" alt="Cartão Fechado" width="300">
-  <img id="openCard" src="carta_aberta.png" alt="Cartão Aberto" width="300">
-  <img id="bouncingGif" src="sax.gif" alt="Coração Animado">
-
-  <audio id="romanticSong" src="musica_romantica.mp3"></audio>
-
-  <script>
-    const card = document.getElementById('card');
-    const openCard = document.getElementById('openCard');
-    const romanticSong = document.getElementById('romanticSong');
-    const bouncingGif = document.getElementById('bouncingGif');
-    const zoomHint = document.getElementById('zoomHint');
-    const openHint = document.getElementById('openHint');
-    
-    let x = Math.random() * window.innerWidth;
-    let y = Math.random() * window.innerHeight;
-    let dx = 3;
-    let dy = 3;
-    const loveWords = ["Love", "Forever", "Passion", "Sweetheart", "Darling", "Romance", "Heart", "Kiss", "Hug"];
-
-    function createLoveWord() {
-      const word = document.createElement('div');
-      word.classList.add('love-word');
-      word.innerText = loveWords[Math.floor(Math.random() * loveWords.length)];
-      word.style.left = `${x}px`;
-      word.style.top = `${y}px`;
-      document.body.appendChild(word);
-      setTimeout(() => word.remove(), 2000);
-    }
-
-    function moveGif() {
-      x += dx;
-      y += dy;
-      
-      if (x + bouncingGif.width >= window.innerWidth || x <= 0) {
-        dx *= -1;
-        createLoveWord();
-      }
-      if (y + bouncingGif.height >= window.innerHeight || y <= 0) {
-        dy *= -1;
-        createLoveWord();
-      }
-      
-      bouncingGif.style.left = x + 'px';
-      bouncingGif.style.top = y + 'px';
-
-      requestAnimationFrame(moveGif);
-    }
-
-    openHint.style.display = 'block';
-
-    card.addEventListener('click', () => {
-      card.style.display = 'none';
-      openCard.style.display = 'block';
-      zoomHint.style.display = 'block';
-      openHint.style.display = 'none';
-      romanticSong.play();
-      bouncingGif.style.display = 'block';
-      moveGif();
-    });
-
-    openCard.addEventListener('click', () => {
-      openCard.classList.toggle('zoomed');
-    });
-  </script>
-</body>
-</html>
+      padding: 8px 12px;
+      border-radius: 8px;
+      fo
